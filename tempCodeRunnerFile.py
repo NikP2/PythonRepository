@@ -1,0 +1,1 @@
+print({frames[i]:dic})
