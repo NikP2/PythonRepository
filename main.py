@@ -1,3 +1,5 @@
+# Task #1 (Read files)
+
 import os
 
 def Min(ls):
@@ -43,44 +45,99 @@ with open("frames_out", "w") as file_out:
             file_out.write(frames[i] + str(dic.items()))
             file_out.write("\n")
 
-# Task #2
+# Task #2 (Validal password)
 
-# def validate_password(n):
-#     alf = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-#     cif = '0123456789'
-#     simb = '!@#$%^&*()_+-=[]{}|;:,.<>?`'
-#     st = 0
-#     za = 0
-#     v1 = len(n) >= 8
-#     v2 = False
-#     v3 = False
-#     v4 = False
-#     v5 = False
-#     for c1 in alf:
-#         if c1 in n.upper():
-#             v2 = True
-#             break
-#     for c2 in n:
-#         if c2.isdigit():
-#             v3 = True
-#             break
-#     for c3 in simb:
-#         if c3 in n:
-#             v4 = True
-#             break
-#     for c4 in n:
-#         if c4 in alf:
-#             za += 1
-#         elif c4 in alf.lower():
-#             st += 1
-#     if za != 0 and st != 0:
-#         v5 = True
-#     return (v1 and v2 and v3 and v4 and v5, [v1, v2, v3, v4, v5])
+def validate_password(n):
+    alf = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    cif = '0123456789'
+    simb = '!@#$%^&*()_+-=[]{}|;:,.<>?`'
+    st = 0
+    za = 0
+    v1 = len(n) >= 8
+    v2 = False
+    v3 = False
+    v4 = False
+    v5 = False
+    for c1 in alf:
+        if c1 in n.upper():
+            v2 = True
+            break
+    for c2 in n:
+        if c2.isdigit():
+            v3 = True
+            break
+    for c3 in simb:
+        if c3 in n:
+            v4 = True
+            break
+    for c4 in n:
+        if c4 in alf:
+            za += 1
+        elif c4 in alf.lower():
+            st += 1
+    if za != 0 and st != 0:
+        v5 = True
+    return (v1 and v2 and v3 and v4 and v5, [v1, v2, v3, v4, v5])
 
 
-# password = validate_password(input())
+password = validate_password(input())
 
-# while password[0] == False:
-#     print(password)
-#     password = validate_password(input("Не валидный пароль! Повтори попытку: "))
-# print("Done!")
+while password[0] == False:
+    print(password)
+    password = validate_password(input("Не валидный пароль! Повтори попытку: "))
+print("Done!")
+
+
+#Task #3 (random password)
+
+
+from random import choice
+from time import sleep
+
+def choice_password(lenght, char):
+    password = ''
+    for _ in range(lenght):
+        password += choice(char)
+    return password
+
+upper = "ABCDEFGHJKLMNPQRSTUVWXYZ"
+lower = "abcdefghijkmnopqrstuvwxyz"
+digits = "23456789"
+special = "!@#$%^&*()_+-=[]{}|;:,.<>?"
+char = ''
+
+
+choose = input("Do you want the password to be set automatically? y/n ")
+if choose == 'y':
+    char = upper + lower + digits + special
+    length_password = 12
+else:
+    reset_try = True
+    while reset_try:
+        try:
+            length_password = int(input("How long is your password? Minimal length is 8: "))
+            if length_password < 8:
+                print("Password length must be at least 8 characters!")
+                continue
+            reset_try = False
+        except ValueError:
+            print("Error 404 :(\nWe need digits!")
+            reset_try = True
+            
+    ch_upper = input("Do you want to use UPPER letters? y/n ")
+    ch_lower = input("Do you want to use LOWER letters? y/n ")
+    ch_digits = input("Do you want to use DIGITS? y/n ")
+    ch_special = input("Do you want to use SPECIAL symbols? y/n ")
+    if ch_upper == 'y':
+        char += upper
+    if ch_lower == 'y':
+        char += lower
+    if ch_special == 'y':
+        char += special
+    if ch_digits == 'y':
+        char += digits
+if char == "":
+    print("Oups! Bad Bad! I need more information! Okey I'll take my variants :)")
+    char = upper + lower + digits + special
+    sleep(1.5)
+print(choice_password(length_password ,char))
