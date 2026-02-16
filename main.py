@@ -144,69 +144,168 @@
 
 # <--------------Lesson_2----------------->
 
-import os
+# import os
 
 
-def is_float(value):
-        try:
-            float(value)
-            return True
-        except ValueError:
-            return False
+# def is_float(value):
+#         try:
+#             float(value)
+#             return True
+#         except ValueError:
+#             return False
 
-def values(data):
-        data = data.strip()
-        if data == '':
-            return '', 'str'
-        elif data.isdigit() or (data[0] == '-' and data[1:].isdigit()):
-            return int(data), 'int'
-        elif is_float(data):
-            return float(data), 'float'
-        else:
-            return data, 'str'
-
-
-def delimiter(line):
-    delimiters = [',', '\t', '|', ';']
-    for delim in delimiters:
-        if delim in line:
-            return delim
-    return ','
-
-def has_header(n):
-    if len(n) == 6:
-        return True
-    else:
-        return False
+# def values(data):
+#         data = data.strip()
+#         if data == '':
+#             return '', 'str'
+#         elif data.isdigit() or (data[0] == '-' and data[1:].isdigit()):
+#             return int(data), 'int'
+#         elif is_float(data):
+#             return float(data), 'float'
+#         else:
+#             return data, 'str'
 
 
+# def delimiter(line):
+#     delimiters = [',', '\t', '|', ';']
+#     for delim in delimiters:
+#         if delim in line:
+#             return delim
+#     return ','
 
-Dir = '/Users/nkt/Desktop/3/data'
-frames = []
-for file in os.listdir(Dir):
-    frames.append(Dir + '/' + file)
+# def has_header(n):
+#     if len(n) == 6:
+#         return True
+#     else:
+#         return False
 
 
-with open("frames_out", "w") as file_out:
-    for i in range(len(frames)):
-        with open(frames[i], "r") as f:
-            data = f.readlines()
-            first_st = has_header(data)
+
+# Dir = '/Users/nkt/Desktop/3/data'
+# frames = []
+# for file in os.listdir(Dir):
+#     frames.append(Dir + '/' + file)
+
+
+# with open("frames_out", "w") as file_out:
+#     for i in range(len(frames)):
+#         with open(frames[i], "r") as f:
+#             data = f.readlines()
+#             first_st = has_header(data)
         
-        dell = delimiter(data[0])
+#         dell = delimiter(data[0])
         
-        for line in data[1:]:
-            parts = line.split(dell)
-            values_list = []
-            types_list = []
-            for part in parts:
-                val, typ = values(part)
-                values_list.append(val)
-                types_list.append(typ)
+#         for line in data[1:]:
+#             parts = line.split(dell)
+#             values_list = []
+#             types_list = []
+#             for part in parts:
+#                 val, typ = values(part)
+#                 values_list.append(val)
+#                 types_list.append(typ)
             
-            print({
-                'header': first_st,
-                'data': values_list,
-                'types': types_list
-            })
-        print()
+#             print({
+#                 'header': first_st,
+#                 'data': values_list,
+#                 'types': types_list
+#             })
+#         print()
+
+# <--------------Lesson_3----------------->
+
+# 
+
+# try:
+#     give_me_money = int(input("Введите сумму: "))
+#     assert give_me_money > 0, 'Ошибка: Число не дожно быть отрицательным!'
+#     assert give_me_money % 100 == 0, 'Ошибка: Сумма должна быть кратна 100!'
+# except ValueError:
+#     print("Ошибка! Не действительное число")
+# except AssertionError as e:
+#     print(e)
+# else:
+#     print(f"Выданно {give_me_money} руб.")
+
+
+# Task 2
+
+
+# try:
+#     age = int(input("Введите свой год рождения: "))
+#     year = int(input("Сегодняшний год: "))
+#     assert age < year, "Ты ещё в утробе!"
+#     assert age > 0, "Чушь полнейшая!"
+#     assert (year - age) <= 120, "Мёртв!"
+# except ValueError:
+#     print("Вы ввели не действительное число!")
+# except AssertionError as e:
+#     print(e)
+# else:
+#     print(f"Твой возраст: {year - age}")
+
+
+# task 3
+
+# try:
+#     f = open("/Users/nkt/PythonRepository/setting.txt", 'r')
+#     a = int(f.readline())
+#     assert 0 <= a <= 100, "Число не лежит в диапазоне от 0 до 100!"
+
+# except ValueError:
+#     print("В файле лежит не число!")
+# except FileNotFoundError:
+#     b = open("settings2.txt", 'w')
+#     b.write('50')
+#     print(f"Файла не существует! \n Я создал для тебя файлик: {b}")
+# except AssertionError as e:
+#     print(e)
+# else:
+#     print(f"Уровень громкости: {a}")
+
+#task 4
+
+# try:
+#     password = input("Введите пароль: ")
+#     login = input("Введите логин: ")
+#     assert len(password) >= 8, "Пароль должен быть не менее 8 символов!"
+#     assert any(c.isupper() for c in password), "Пароль должен содержать хотя бы одну заглавную букву!"
+#     assert any(c.isdigit() for c in password), "Пароль должен содержать хотя бы одну цифру!"
+# except AssertionError as e:
+#     print(e)
+# else:    
+#     print("Пароль принят!")
+
+
+# task 5
+from random import choice
+
+def get_user_data(user_id):
+    # Эмуляция работы функции
+    error_type = choice(['connection', 'permission', 'value', 'success', 'no_name'])
+    
+    if error_type == 'connection':
+        raise ConnectionError("Нет соединения с сервером")
+    elif error_type == 'permission':
+        raise PermissionError("Доступ запрещен")
+    elif error_type == 'value':
+        raise ValueError("Неверный формат ID")
+    elif error_type == 'no_name':
+        return {"id": user_id, "age": 25}  # Нет ключа 'name'
+    else:
+        return {"id": user_id, "name": "Иван", "age": 25}
+    
+try:
+    user_id = input("Введите ID пользователя: ")
+    user_data = get_user_data(user_id)
+    if 'name' not in user_data:
+        raise KeyError("Ключ 'name' отсутствует в данных пользователя")
+except ConnectionError as e:
+    print(f"Ошибка соединения: {e}")
+except PermissionError as e:
+    print(f"Ошибка доступа: {e}")
+except ValueError as e:
+    print(f"Ошибка значения: {e}")
+except KeyError as e:
+    print(f"Ошибка данных: {e}")
+else:
+    print(f"Данные пользователя: {user_data}")
