@@ -277,35 +277,187 @@
 
 
 # task 5
-from random import choice
+# from random import choice
 
-def get_user_data(user_id):
-    # Эмуляция работы функции
-    error_type = choice(['connection', 'permission', 'value', 'success', 'no_name'])
+# def get_user_data(user_id):
+#     # Эмуляция работы функции
+#     error_type = choice(['connection', 'permission', 'value', 'success', 'no_name'])
     
-    if error_type == 'connection':
-        raise ConnectionError("Нет соединения с сервером")
-    elif error_type == 'permission':
-        raise PermissionError("Доступ запрещен")
-    elif error_type == 'value':
-        raise ValueError("Неверный формат ID")
-    elif error_type == 'no_name':
-        return {"id": user_id, "age": 25}  # Нет ключа 'name'
-    else:
-        return {"id": user_id, "name": "Иван", "age": 25}
+#     if error_type == 'connection':
+#         raise ConnectionError("Нет соединения с сервером")
+#     elif error_type == 'permission':
+#         raise PermissionError("Доступ запрещен")
+#     elif error_type == 'value':
+#         raise ValueError("Неверный формат ID")
+#     elif error_type == 'no_name':
+#         return {"id": user_id, "age": 25}  # Нет ключа 'name'
+#     else:
+#         return {"id": user_id, "name": "Иван", "age": 25}
     
-try:
-    user_id = input("Введите ID пользователя: ")
-    user_data = get_user_data(user_id)
-    if 'name' not in user_data:
-        raise KeyError("Ключ 'name' отсутствует в данных пользователя")
-except ConnectionError as e:
-    print(f"Ошибка соединения: {e}")
-except PermissionError as e:
-    print(f"Ошибка доступа: {e}")
-except ValueError as e:
-    print(f"Ошибка значения: {e}")
-except KeyError as e:
-    print(f"Ошибка данных: {e}")
-else:
-    print(f"Данные пользователя: {user_data}")
+# try:
+#     user_id = input("Введите ID пользователя: ")
+#     user_data = get_user_data(user_id)
+#     if 'name' not in user_data:
+#         raise KeyError("Ключ 'name' отсутствует в данных пользователя")
+# except ConnectionError as e:
+#     print(f"Ошибка соединения: {e}")
+# except PermissionError as e:
+#     print(f"Ошибка доступа: {e}")
+# except ValueError as e:
+#     print(f"Ошибка значения: {e}")
+# except KeyError as e:
+#     print(f"Ошибка данных: {e}")
+# else:
+#     print(f"Данные пользователя: {user_data}")
+
+
+
+#task 6
+
+# from time import time, ctime
+
+
+
+
+# def my_decorator(func):
+#     def wrapper(*args, **kwargs):
+#         a = time()
+#         print("До...")
+#         result = func(*args, **kwargs)
+#         print("После...")
+#         b = time()
+#         with open('log_decoration.txt', 'a') as f:
+#             f.write(ctime(a))
+#             f.write(str(b - a))
+#             f.write(func.__name__)
+#             f.write(f"args: {args} \n")
+#             f.write(f"Время завершения работы функции: {b}")
+#         return result
+#     return wrapper
+
+# @my_decorator
+# def greet(name):
+#     print(f"Hello, {name}!")
+#     return "OK"
+
+# result = greet("Анна")
+# print(result)
+
+# @my_decorator
+# def calculate(a, b, operation):
+    
+#     if operation == '+':
+#         return a + b
+#     elif operation == '-':
+#         return a - b
+#     elif operation == '*':
+#         return a * b
+#     elif operation == '/':
+#         return a / b
+#     else:
+#         raise ValueError("Неподдерживаемая операция")
+
+# calculate(10, 5, '+')
+
+#task 7
+
+# def cache_decorator(func):
+#     cache = {}
+#     def wrapper(*args, **kwargs):
+#         key = (args, tuple(sorted(kwargs.items())))
+#         if key in cache:
+#             print(f"Возвращено из кэша {args}")
+#             return cache[key]
+#         result = func(*args, **kwargs)
+#         cache[key] = result
+#         print(f"Вычислено для аргументов {args}: {result}")
+#         return result
+    
+#     return wrapper
+
+
+# @cache_decorator
+# def fibonacci(n):
+#     if n <= 1:
+#         return n
+#     return fibonacci(n-1) + fibonacci(n-2)
+
+# print(fibonacci(10))
+
+
+# ------------------------------------------
+
+# import numpy as np
+# import matplotlib.pyplot as plt
+
+# data = np.loadtxt("company_sales_data.csv", delimiter=",", skiprows=1)
+# data = np.transpose(data)
+# print(data[0])
+# plt.plot(data[0],data[1], '--r')
+
+
+#1
+import numpy as np
+import matplotlib.pyplot as plt
+data = np.loadtxt('company_sales_data.csv', delimiter = ',', skiprows = 1)
+
+# data = np.transpose(data)
+# x = data[0]
+# y = data[8]
+# plt.plot(x, y)
+# plt.title('company profit per month')
+# plt.xlabel('month number')
+# plt.ylabel('profit per month')
+# plt.show()
+
+#2
+
+# data = np.transpose(data)
+# x = data[0]
+# y = data[8]
+# plt.scatter(x, y, color='#000')
+# plt.plot(x, y, linestyle='--', linewidth=3, color='red')
+# plt.title('company profit per month')
+# plt.xlabel('month number')
+# plt.ylabel('profit per month')
+# plt.show()
+
+# #3.1
+
+# data = np.transpose(data)
+# for i in range(5):
+#     x = data[0]
+#     y = data[i]
+#     plt.plot(x, y)
+#     plt.scatter(x, y)
+# plt.title('company profit per month')
+# plt.xlabel('month number')
+# plt.ylabel('profit per month')
+# plt.show()
+
+# #3.2 
+# fig, axs = plt.subplots(5)
+# for j in range(5): 
+#     axs[j].plot(x, data[j + 1])
+# plt.show()
+
+# 4
+
+data = np.transpose(data)
+for i in range(5):
+    x = data[0]
+    y = data[i]
+    plt.plot(x, y)
+    plt.scatter(x, y)
+plt.title('company profit per month')
+plt.xlabel('month number')
+plt.ylabel('profit per month')
+
+
+fig, axs = plt.subplots(5)
+for j in range(5): 
+    axs[j].plot(x, data[j + 1])
+for ax in axs:
+    ax.xlabel("month number")
+    ax.ylabel("")
+plt.show()
